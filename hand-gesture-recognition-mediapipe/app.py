@@ -58,7 +58,9 @@ def get_args():
 
 
 def main():
-    xpos = 600
+    flash_active = False
+    flash_frames = 0
+    xpos = 50
     text = ""
     count = 0
     previous_gesture = None
@@ -185,7 +187,7 @@ def main():
                     finger_gesture_history).most_common()
 
                 # Drawing part
-                #debug_image = draw_bounding_rect(use_brect, debug_image, brect)
+                debug_image = draw_bounding_rect(use_brect, debug_image, brect)
                 #debug_image = draw_landmarks(debug_image, landmark_list)
                 debug_image = draw_info_text(
                     debug_image,
@@ -195,24 +197,33 @@ def main():
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
 
+                if flash_active:
+                    cv.rectangle(debug_image, (brect[0], brect[1]), (brect[2], brect[3]),
+                                 (0, 255, 255), -1)
+                    flash_frames -= 1
+                    if flash_frames <= 0:
+                        flash_active = False
+
                 ###################################################################
 
                 current = keypoint_classifier_labels[hand_sign_id]
                 if current == previous_gesture:
                     count = count + 1
-                    if count > 12:
+                    if count > 8:
+                        flash_active = True
+                        (w, h), _ = cv.getTextSize(current, cv.FONT_HERSHEY_SIMPLEX , 0.3, 1)
                         if current == "Space":
                             text = text + " "
                         elif current == "Clear":
                             text = ""
-                            xpos = 600
+                            xpos = 50
                         elif current == "Delete" and text != "":
                             text = text[:-1]
-                            xpos = xpos + 15
+                            #xpos = xpos + w
                         else:
                             if current != "Delete":
                                 text = text + keypoint_classifier_labels[hand_sign_id]
-                                xpos = xpos - 15
+                                #xpos = xpos - w
                         #debug_image = add_arabic_text(debug_image,
                         #                        current,
                         #                        (100, 100),
@@ -225,6 +236,8 @@ def main():
 
         else:
             point_history.append([0, 0])
+
+
 
         debug_image = draw_point_history(debug_image, point_history)
         debug_image = draw_info(debug_image, fps, mode, number)
@@ -348,12 +361,12 @@ def logging_csv(number, mode, landmark_list, point_history_list):
         csv_path = 'model/keypoint_classifier/keypoint.csv'
         with open(csv_path, 'a', newline="") as f:
             writer = csv.writer(f)
-            writer.writerow([number + 20, *landmark_list])
+            writer.writerow([number + 10, *landmark_list])
     if mode == 2 and (0 <= number <= 9):
         csv_path = 'model/point_history_classifier/point_history.csv'
         with open(csv_path, 'a', newline="") as f:
             writer = csv.writer(f)
-            writer.writerow([number + 20, *point_history_list])
+            writer.writerow([number + 10, *point_history_list])
     return
 
 
@@ -556,14 +569,12 @@ def draw_bounding_rect(use_brect, image, brect):
 
 def draw_info_text(image, brect, handedness, hand_sign_text,
                    finger_gesture_text):
-    cv.rectangle(image, (brect[0], brect[1]), (brect[2], brect[1] - 22),
-                 (0, 0, 0), -1)
+    #cv.rectangle(image, (brect[0], brect[1]), (brect[2], brect[1] - 22), (0, 0, 0), -1)
 
     info_text = handedness.classification[0].label[0:]
     if hand_sign_text != "":
         info_text = info_text + ':' + hand_sign_text
-    cv.putText(image, info_text, (brect[0] + 5, brect[1] - 4),
-               cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv.LINE_AA)
+    #cv.putText(image, info_text, (brect[0] + 5, brect[1] - 4), cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv.LINE_AA)
 
     if finger_gesture_text != "":
         image = add_arabic_text(image,
@@ -596,7 +607,7 @@ def draw_info(image, fps, mode, number):
                    cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
                    cv.LINE_AA)
         if 0 <= number <= 9:
-            cv.putText(image, "NUM:" + str(number + 20), (10, 110),
+            cv.putText(image, "NUM:" + str(number + 10), (10, 110),
                        cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
                        cv.LINE_AA)
     return image
