@@ -32,8 +32,6 @@ def add_arabic_text(img, text, position, size=30, color=(0,0,0)):
     draw.text(position, arabic_formatter(text), fill=color, font=font)
     return cv.cvtColor(np.array(img_pil), cv.COLOR_RGB2BGR)
 
-
-
 def get_args():
     parser = argparse.ArgumentParser()
 
@@ -55,15 +53,15 @@ def get_args():
 
     return args
 
-
-
 def main():
+
     flash_active = False
     flash_frames = 0
     xpos = 50
     text = ""
     count = 0
     previous_gesture = None
+
     # Argument parsing #################################################################
     args = get_args()
 
@@ -209,7 +207,7 @@ def main():
                 current = keypoint_classifier_labels[hand_sign_id]
                 if current == previous_gesture:
                     count = count + 1
-                    if count > 8:
+                    if count > 10   :
                         flash_active = True
                         (w, h), _ = cv.getTextSize(current, cv.FONT_HERSHEY_SIMPLEX , 0.3, 1)
                         if current == "Space":
@@ -219,16 +217,9 @@ def main():
                             xpos = 50
                         elif current == "Delete" and text != "":
                             text = text[:-1]
-                            #xpos = xpos + w
                         else:
                             if current != "Delete":
                                 text = text + keypoint_classifier_labels[hand_sign_id]
-                                #xpos = xpos - w
-                        #debug_image = add_arabic_text(debug_image,
-                        #                        current,
-                        #                        (100, 100),
-                        #                        size=100,
-                        #                        color=(0, 0, 0))
                         count = 0
                 else:
                     previous_gesture = current
@@ -236,8 +227,6 @@ def main():
 
         else:
             point_history.append([0, 0])
-
-
 
         debug_image = draw_point_history(debug_image, point_history)
         debug_image = draw_info(debug_image, fps, mode, number)
