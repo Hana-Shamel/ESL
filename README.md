@@ -1,8 +1,7 @@
 # ESL
 Egyptian Sign Language gesture detection using mediapipe and openCV
 ## Arabic Hand Gesture Recognition System
-https://demo.gif (Replace with actual demo footage)
-
+![til](./a34057.gif)
 Project Overview
 This system extends Kazuhito00's Hand Gesture Recognition by adding support for:
 
