@@ -28,7 +28,7 @@ This system extends Kazuhito00's Hand Gesture Recognition by adding support for:
 
 ⚡ Adjustable Sensitivity: Control detection speed via frame threshold
 
-### Training Protocol
+### Training Protocol For Higher Accuracy
 
 For letter with index 23 in "keypoint_classifier_label.csv":
 
