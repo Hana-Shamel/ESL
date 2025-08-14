@@ -1,5 +1,5 @@
-# ESL
-Egyptian Sign Language gesture detection using mediapipe and openCV
+# ASL - Arabic Sign Language
+Arabic Sign Language gesture detection using mediapipe and openCV
 ## Arabic Hand Gesture Recognition System
 <p align="center">
   <img src="./a34057.gif" width="400" alt="Gesture Recognition Demo">
