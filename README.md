@@ -43,6 +43,11 @@ This system extends Kazuhito00's Hand Gesture Recognition by adding support for:
 
 Please view the README of Kazuhito00's Hand Gesture Recognition Repo: https://github.com/kinivi/hand-gesture-recognition-mediapipe
 
+Additional requirements
++ arabic_reshaper 3.0.0
++ python-bidi 0.6.6
++ pillow 11.2.1 
+
 ### Training Protocol For Higher Accuracy
 
 For letter with index 23 in "keypoint_classifier_label.csv":
