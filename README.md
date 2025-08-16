@@ -38,6 +38,11 @@ This system extends Kazuhito00's Hand Gesture Recognition by adding support for:
 
 - Model: CNN – Static gesture classification
 
+### Getting Started
+*This section includes the requirements, how to run the app, training protocol and other more detailed information about the original hand gesture detection model*
+
+Please view the README of Kazuhito00's Hand Gesture Recognition Repo: https://github.com/kinivi/hand-gesture-recognition-mediapipe
+
 ### Training Protocol For Higher Accuracy
 
 For letter with index 23 in "keypoint_classifier_label.csv":
