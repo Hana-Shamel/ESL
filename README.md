@@ -52,8 +52,8 @@ Additional requirements
 
 For letter with index 23 in "keypoint_classifier_label.csv":
 
-1. (shift + f) "number +"
-2. Add 20 next to "+"  *index 0 to 9: add 0, index 10 to 19: add 10*
+1. search for the line of code with (shift + f) "number +" in it
+2. Add 20 after the "+"  *index 0 to 9: add 0, index 10 to 19: add 10*
 3. Run app
 4. Press k to enter training mode
 5. Press 2 (for 20 + 2 = 22) *Note: CSV uses 0-based indexing while labels start from 1*
