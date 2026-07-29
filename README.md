@@ -50,16 +50,17 @@ Additional requirements
 
 ### Training Protocol For Higher Accuracy
 
-For letter with index 23 in "keypoint_classifier_label.csv":
+Assume you want to increase the accuracy of a letter for index 23 in "keypoint_classifier_label.csv":
 
-1. search for the line of code with (shift + f) "number +" in it
+1. search (shift + f) for the line of code with "number +" in it
 2. Add 20 after the "+"  *index 0 to 9: add 0, index 10 to 19: add 10*
-3. Run app
+3. Run app.py
 4. Press k to enter training mode
-5. Press 2 (for 20 + 2 = 22) *Note: CSV uses 0-based indexing while labels start from 1*
-6. Make the gesture 20+ times
-7. Close app
-8. Open "keypoint_classification_EN" in Jupyter notebook & run all cells
-9. Training done ✅
+5. Press 2 (for 20 + 2 = 22) while doing the hand gesture to the camera to take a screenshot of the hand landmarks coordinates *Note: CSV uses 0-based indexing while labels start from 1*
+6. Screenshot the gesture at least 20 times
+7. Stop app.py
+8. Open "keypoint_classification_EN" in Jupyter notebook and run all the cells
+
+Training done ✅
 
 Kazuhito00's Hand Gesture Recognition Repo: https://github.com/kinivi/hand-gesture-recognition-mediapipe
